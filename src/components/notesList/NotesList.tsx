@@ -4,8 +4,8 @@ import {AddItem} from '../addItem/AddItem';
 import {Notes} from './notes/Notes';
 import {addNote, FilterValuesType, NotesType, removeNotes, updateNotes} from '../../store/notesSlice';
 import {useAppDispatch} from '../../hooks/hooks';
-import {addAllTags} from '../../store/appSlice';
 import s from './noteList.module.scss'
+import {ReactComponent as Delete} from '../../assets/images/delete.svg'
 
 type NotesListPropsType = {
     id: string
@@ -18,13 +18,6 @@ export const NotesList: FC<NotesListPropsType> = ({id: notesId, filter, title, n
     const dispatch = useAppDispatch()
     const addNotesHandler = useCallback((titleNote: string) => {
         dispatch(addNote({notesId, titleNote}))
-
-        const words = titleNote.split(' ');
-        const newTags = words.filter((word) => word.startsWith('#')) //.map((tag) => tag.slice(1));
-        // dispatch(addTags({notesId, noteId, newTags}))
-        let arrForAllTags = newTags.map((t) => ({id:notesId, tag: t}))
-        dispatch(addAllTags(arrForAllTags))
-
     }, []);
     const onChangeRemoveNotesHandler = () => {
         dispatch(removeNotes(notesId))
@@ -34,13 +27,12 @@ export const NotesList: FC<NotesListPropsType> = ({id: notesId, filter, title, n
     }, []);
 
     return (
-        <div>
-            <div>
+        <div className={s.noteList}>
+            <div className={s.block}>
                 <EditableSpan clasName={s.titleNotes} callBack={onChangeUpdateTodoListHandler} title={title}/>
-                <button className={s.btn} onClick={onChangeRemoveNotesHandler}>delete notes</button>
+                <Delete className={s.btn} onClick={onChangeRemoveNotesHandler} />
             </div>
             <AddItem callBack={addNotesHandler} />
-
             <Notes notesId={notesId} filter={filter} notes={notes} />
         </div>
     );

@@ -1,6 +1,7 @@
 import React, {ChangeEvent, memo, useState} from 'react';
 import s from './editableSpan.module.sass'
 
+
 type EditableSpanType = {
     callBack: (title: string) => void
     isDone?: boolean

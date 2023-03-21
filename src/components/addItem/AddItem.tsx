@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 import s from './addItem.module.scss'
+import {ReactComponent as Add} from '../../assets/images/add.svg'
 
 type AddItemFormType = {
     callBack: (title: string) => void
@@ -29,16 +30,14 @@ export const AddItem: React.FC<AddItemFormType> = memo(({ callBack, disabled = f
     return (
         <div className={s.addItemBlock}>
             <h2 className={s.title}>{text}</h2>
-            <div>
+            <div className={s.form}>
                 <input className={s.input}
                        disabled={disabled}
                        value={title}
                        onChange={onChangeTitleHandler}
                        onKeyDown={onKeyDownTitleHandler}
                 />
-                <button onClick={addItemHandler}  disabled={disabled}>
-                    +
-                </button>
+                <Add className={s.btnAdd} onClick={addItemHandler} />
             </div>
         </div>
     );

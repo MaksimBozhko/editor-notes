@@ -8,7 +8,7 @@ export type FilterValuesType = 'all' | 'active' | 'completed'
 const initialState: NotesListType[] = [
     {
         id: 'notesList1', title: 'What to learn', filter: 'all', notes: [
-            {id: 'taskId1', title: 'HTML', status: 'active', timeAdded: '', tags: []},
+            {id: 'taskId1', title: '#HTML', status: 'active', timeAdded: '', tags: []},
             {id: 'taskId2', title: 'JS', status: 'active', timeAdded: '', tags: []},
             {id: 'taskId3', title: 'React', status: 'active', timeAdded: '', tags: []},
         ]
@@ -16,7 +16,7 @@ const initialState: NotesListType[] = [
     {
         id: 'notesList2', title: 'What to buy', filter: 'all', notes: [
             {id: 'taskId1', title: 'bread', status: 'active', timeAdded: '', tags: []},
-            {id: 'taskId2', title: 'milk', status: 'active', timeAdded: '', tags: []},
+            {id: 'taskId2', title: '#milk', status: 'active', timeAdded: '', tags: []},
             {id: 'taskId3', title: 'soup', status: 'active', timeAdded: '', tags: []},
         ]
     },

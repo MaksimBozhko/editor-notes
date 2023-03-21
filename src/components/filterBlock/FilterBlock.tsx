@@ -1,6 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import {useAppDispatch} from '../../hooks/hooks';
 import {changeFilter, FilterValuesType} from '../../store/notesSlice';
+import s from './filterBlock.module.scss'
 
 type FilterBlockPropsType = {
     id: string;
@@ -13,7 +14,7 @@ export const FilterBlock: React.FC<FilterBlockPropsType> = memo(({ id, filter })
     },[]);
 
     return (
-        <div>
+        <div className={s.btnGroup}>
             <button onClick={() => changeFilterHandler('all')}>
                 All
             </button>

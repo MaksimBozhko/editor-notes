@@ -1,0 +1,14 @@
+.App {
+  & .headerBlock {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+  }
+
+  & .noteListBlock {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+}

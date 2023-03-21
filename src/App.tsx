@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import './App.css';
+import s from './App.module.scss';
 import {AddItem} from './components/addItem/AddItem';
 import {NotesList} from './components/notesList/NotesList';
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
@@ -18,14 +18,12 @@ function App() {
     const notes = ArrNotesToRender.map((t) => <NotesList key={t.id} id={t.id} title={t.title} filter={t.filter} notes={t.notes}/>)
 
     return (
-        <div className="App">
-            <div>
+        <div className={s.App}>
+            <div className={s.headerBlock}>
+                <AddItem text={'add new notes form'} callBack={addNotesHandler}/>
                 <FilterTags/>
             </div>
-            <div>
-                <AddItem text={'add new notes form'} callBack={addNotesHandler}/>
-            </div>
-            <div>
+            <div className={s.noteListBlock}>
                 {notes}
             </div>
         </div>
