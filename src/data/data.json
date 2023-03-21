@@ -20,7 +20,7 @@
       },
       {
         "id": "taskId3",
-        "title": "React",
+        "title": "#React",
         "status": "active",
         "timeAdded": "",
         "tags": []
@@ -34,7 +34,7 @@
     "notes": [
       {
         "id": "taskId1",
-        "title": "bread",
+        "title": "#bread",
         "status": "active",
         "timeAdded": "",
         "tags": []

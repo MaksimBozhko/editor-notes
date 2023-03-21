@@ -5,22 +5,7 @@ import Data from '../data/data.json'
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
-const initialState: NotesListType[] = [
-    {
-        id: 'notesList1', title: 'What to learn', filter: 'all', notes: [
-            {id: 'taskId1', title: '#HTML', status: 'active', timeAdded: '', tags: []},
-            {id: 'taskId2', title: 'JS', status: 'active', timeAdded: '', tags: []},
-            {id: 'taskId3', title: 'React', status: 'active', timeAdded: '', tags: []},
-        ]
-    },
-    {
-        id: 'notesList2', title: 'What to buy', filter: 'all', notes: [
-            {id: 'taskId1', title: 'bread', status: 'active', timeAdded: '', tags: []},
-            {id: 'taskId2', title: '#milk', status: 'active', timeAdded: '', tags: []},
-            {id: 'taskId3', title: 'soup', status: 'active', timeAdded: '', tags: []},
-        ]
-    },
-]
+const initialState: NotesListType[] = Data
 
 export const notesSlice = createSlice({
     name: 'notes',
@@ -105,7 +90,7 @@ export default notesSlice.reducer
 export type NotesListType = {
     id: string
     title: string
-    filter: FilterValuesType
+    filter: string
     notes: NotesType[]
 }
 export type NotesType = {

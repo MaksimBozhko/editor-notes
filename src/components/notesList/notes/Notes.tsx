@@ -2,17 +2,17 @@ import React, {memo} from 'react';
 import {FilterBlock} from '../../filterBlock/FilterBlock';
 import {useAutoAnimate} from '@formkit/auto-animate/react';
 import {Note} from './note/Note';
-import {FilterValuesType, NotesType} from '../../../store/notesSlice';
+import {NotesType} from '../../../store/notesSlice';
 import {useAppSelector} from '../../../hooks/hooks';
 import s from './notes.module.scss'
 
 type TasksPropsType = {
     notesId: string
-    filter: FilterValuesType
+    filter: string
     notes: NotesType[]
 };
 
-export const Notes: React.FC<TasksPropsType> = memo(({ notesId, filter, notes }) => {
+export const Notes: React.FC<TasksPropsType> = memo(({notesId, filter, notes}) => {
     const [listRef] = useAutoAnimate<HTMLUListElement>();
     const {selectedTag} = useAppSelector(state => state.app)
     const ArrNotesToRender = selectedTag.id ? notes.filter((n) => n.title.includes(selectedTag.tag)) : notes
@@ -28,8 +28,8 @@ export const Notes: React.FC<TasksPropsType> = memo(({ notesId, filter, notes })
     };
     let filteredTasksToRender: NotesType[] = getFilteredTasks();
     let filteredTasksToRenderMap = filteredTasksToRender.length ? (
-        filteredTasksToRender.map(({ id, title, status }) => {
-            return <Note key={id} notesId={notesId} noteId={id} title={title} status={status} />;
+        filteredTasksToRender.map(({id, title, status}) => {
+            return <Note key={id} notesId={notesId} noteId={id} title={title} status={status}/>;
         })
     ) : (
         <span>Tasks list is empty</span>
@@ -38,7 +38,7 @@ export const Notes: React.FC<TasksPropsType> = memo(({ notesId, filter, notes })
     return (
         <div>
             <ul className={s.noteItem} ref={listRef}>{filteredTasksToRenderMap}</ul>
-            <FilterBlock id={notesId} filter={filter} />
+            <FilterBlock id={notesId} filter={filter}/>
         </div>
     );
 });

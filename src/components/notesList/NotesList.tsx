@@ -2,7 +2,7 @@ import React, {FC, useCallback} from 'react';
 import {EditableSpan} from '../editableSpan/EditableSpan';
 import {AddItem} from '../addItem/AddItem';
 import {Notes} from './notes/Notes';
-import {addNote, FilterValuesType, NotesType, removeNotes, updateNotes} from '../../store/notesSlice';
+import {addNote, NotesType, removeNotes, updateNotes} from '../../store/notesSlice';
 import {useAppDispatch} from '../../hooks/hooks';
 import s from './noteList.module.scss'
 import {ReactComponent as Delete} from '../../assets/images/delete.svg'
@@ -10,7 +10,7 @@ import {ReactComponent as Delete} from '../../assets/images/delete.svg'
 type NotesListPropsType = {
     id: string
     title: string
-    filter: FilterValuesType
+    filter: string
     notes: NotesType[]
 };
 

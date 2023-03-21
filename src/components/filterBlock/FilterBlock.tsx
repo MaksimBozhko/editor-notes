@@ -4,8 +4,8 @@ import {changeFilter, FilterValuesType} from '../../store/notesSlice';
 import s from './filterBlock.module.scss'
 
 type FilterBlockPropsType = {
-    id: string;
-    filter: FilterValuesType;
+    id: string
+    filter: string
 };
 export const FilterBlock: React.FC<FilterBlockPropsType> = memo(({ id, filter }) => {
     const dispatch = useAppDispatch()
