@@ -3,6 +3,8 @@ import {FilterBlock} from '../../filterBlock/FilterBlock';
 import {useAutoAnimate} from '@formkit/auto-animate/react';
 import {Note} from './note/Note';
 import {FilterValuesType, NotesType} from '../../../store/notesSlice';
+import {useAppSelector} from '../../../hooks/hooks';
+import s from './notes.module.scss'
 
 type TasksPropsType = {
     notesId: string
@@ -12,20 +14,21 @@ type TasksPropsType = {
 
 export const Notes: React.FC<TasksPropsType> = memo(({ notesId, filter, notes }) => {
     const [listRef] = useAutoAnimate<HTMLUListElement>();
-
+    const {selectedTag} = useAppSelector(state => state.app)
+    const ArrNotesToRender = selectedTag.id ? notes.filter((n) => n.title.includes(selectedTag.tag)) : notes
     const getFilteredTasks = () => {
         switch (filter) {
             case 'active':
-                return notes.filter((t) => t.status === 'active');
+                return ArrNotesToRender.filter((t) => t.status === 'active');
             case 'completed':
-                return notes.filter((t) => t.status === 'completed');
+                return ArrNotesToRender.filter((t) => t.status === 'completed');
             default:
-                return notes;
+                return ArrNotesToRender;
         }
     };
     let filteredTasksToRender: NotesType[] = getFilteredTasks();
     let filteredTasksToRenderMap = filteredTasksToRender.length ? (
-        filteredTasksToRender.map(({ id, title, status }) => {
+        ArrNotesToRender.map(({ id, title, status }) => {
             return <Note key={id} notesId={notesId} noteId={id} title={title} status={status} />;
         })
     ) : (
@@ -34,7 +37,7 @@ export const Notes: React.FC<TasksPropsType> = memo(({ notesId, filter, notes })
 
     return (
         <div>
-            <ul ref={listRef}>{filteredTasksToRenderMap}</ul>
+            <ul className={s.noteItem} ref={listRef}>{filteredTasksToRenderMap}</ul>
             <FilterBlock id={notesId} filter={filter} />
         </div>
     );

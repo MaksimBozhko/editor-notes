@@ -1,29 +1,25 @@
 import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
+import s from './addItem.module.scss'
 
 type AddItemFormType = {
     callBack: (title: string) => void
     disabled?: boolean
+    text?: string
 };
 
-export const AddItem: React.FC<AddItemFormType> = memo(({ callBack, disabled = false }) => {
+export const AddItem: React.FC<AddItemFormType> = memo(({ callBack, disabled = false, text }) => {
     const [title, setTitle] = useState('');
-    const [error, setError] = useState<boolean>(false);
 
     const addItemHandler = () => {
         let newTitle = title.trim();
         if (newTitle !== '') {
             callBack(title);
             setTitle('');
-        } else {
-            setError(true);
         }
     };
-
     const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        error && setError(false);
         setTitle(e.currentTarget.value);
     };
-
     const onKeyDownTitleHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             addItemHandler();
@@ -31,18 +27,19 @@ export const AddItem: React.FC<AddItemFormType> = memo(({ callBack, disabled = f
     };
 
     return (
-        <div>
-            <input
-                disabled={disabled}
-                value={title}
-                onChange={onChangeTitleHandler}
-                onKeyDown={onKeyDownTitleHandler}
-            />
-            {/* <Button disabled={!title.trim()} handler={addItemHandler} name={'+'} /> */}
-            <button onClick={addItemHandler}  disabled={disabled}>
-                +
-            </button>
-            {/* {errorMessage} */}
+        <div className={s.addItemBlock}>
+            <h2 className={s.title}>{text}</h2>
+            <div>
+                <input className={s.input}
+                       disabled={disabled}
+                       value={title}
+                       onChange={onChangeTitleHandler}
+                       onKeyDown={onKeyDownTitleHandler}
+                />
+                <button onClick={addItemHandler}  disabled={disabled}>
+                    +
+                </button>
+            </div>
         </div>
     );
 });

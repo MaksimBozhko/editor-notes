@@ -1,7 +1,9 @@
 import React, {ChangeEvent, memo, useCallback} from 'react';
 import {EditableSpan} from '../../../editableSpan/EditableSpan';
-import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
+import {useAppDispatch} from '../../../../hooks/hooks';
 import {changeStatus, removeNote, updateNote} from '../../../../store/notesSlice';
+import {addAllTags} from '../../../../store/appSlice';
+import s from './note.module.scss'
 
 type TodoPropsType = {
     notesId: string;
@@ -10,9 +12,8 @@ type TodoPropsType = {
     status: any;
 };
 
-export const Note: React.FC<TodoPropsType> = memo(({ notesId, noteId, title, status }) => {
+export const Note: React.FC<TodoPropsType> = memo(({notesId, noteId, title, status}) => {
     const dispatch = useAppDispatch()
-    const notesList = useAppSelector(state => state.notes)
     const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const status = e.currentTarget.checked ? 'completed' : 'active'
         dispatch(changeStatus({notesId, noteId, status}))
@@ -21,16 +22,21 @@ export const Note: React.FC<TodoPropsType> = memo(({ notesId, noteId, title, sta
 
     const updateTaskHandler = useCallback((title: string) => {
         dispatch(updateNote({notesId, noteId, title}))
+
+        const words = title.split(' ');
+        const newTags = words.filter((word) => word.startsWith('#'))
+        let arrForAllTags = newTags.map((t) => ({id: notesId, tag: t}))
+        dispatch(addAllTags(arrForAllTags))
     }, []);
 
     const onChangeRemoveHandler = () => {
         dispatch(removeNote({notesId, noteId}))
     };
     return (
-        <li key={noteId}>
+        <li key={noteId} className={s.note}>
             <input onChange={onChangeStatusHandler} type="checkbox" checked={status === 'completed'}/>
-            <EditableSpan callBack={updateTaskHandler} isDone={!!status} title={title} />
-            <button onClick={onChangeRemoveHandler}>delete note</button>
+            <EditableSpan clasName={s.titleNote} callBack={updateTaskHandler} isDone={!!status} title={title}/>
+            <button className={s.btn} onClick={onChangeRemoveHandler}>delete note</button>
         </li>
     );
 });

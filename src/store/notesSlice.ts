@@ -1,22 +1,23 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {v1} from 'uuid';
 import produce from 'immer';
+import Data from '../data/data.json'
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
 const initialState: NotesListType[] = [
     {
         id: 'notesList1', title: 'What to learn', filter: 'all', notes: [
-            {id: 'taskId1', title: 'HTML', status: 'active', timeAdded: ''},
-            {id: 'taskId2', title: 'JS', status: 'active', timeAdded: ''},
-            {id: 'taskId3', title: 'React', status: 'active', timeAdded: ''},
+            {id: 'taskId1', title: 'HTML', status: 'active', timeAdded: '', tags: []},
+            {id: 'taskId2', title: 'JS', status: 'active', timeAdded: '', tags: []},
+            {id: 'taskId3', title: 'React', status: 'active', timeAdded: '', tags: []},
         ]
     },
     {
         id: 'notesList2', title: 'What to buy', filter: 'all', notes: [
-            {id: 'taskId1', title: 'bread', status: 'active', timeAdded: ''},
-            {id: 'taskId2', title: 'milk', status: 'active', timeAdded: ''},
-            {id: 'taskId3', title: 'soup', status: 'active', timeAdded: ''},
+            {id: 'taskId1', title: 'bread', status: 'active', timeAdded: '', tags: []},
+            {id: 'taskId2', title: 'milk', status: 'active', timeAdded: '', tags: []},
+            {id: 'taskId3', title: 'soup', status: 'active', timeAdded: '', tags: []},
         ]
     },
 ]
@@ -31,7 +32,6 @@ export const notesSlice = createSlice({
                 draftState.push(newNotes);
             });
         },
-
         removeNotes: (state, action: PayloadAction<string>) => {
             return state.filter(n => n.id !== action.payload)
         },
@@ -44,6 +44,7 @@ export const notesSlice = createSlice({
         },
         addNote: (state, action: PayloadAction<{notesId: string, titleNote: string}>) => {
             const newNote = {id: v1(), title: action.payload.titleNote, status: 'active', timeAdded: ''}
+            // @ts-ignore
             state.map(n => action.payload.notesId === n.id ? n.notes.unshift(newNote) : n)
         },
         removeNote: (state, action: PayloadAction<{ notesId: string, noteId: string }>) => {
@@ -84,18 +85,20 @@ export const notesSlice = createSlice({
                 state[noteIndex].filter = value
             }
         },
-        // setTodolists: (state, action: PayloadAction<TodolistType[]>) => {
-        //     debugger
-        //     action.payload.forEach(tl => state[tl.id] = [])
-        // },
-        // addTodolist: (state, action: PayloadAction<TodolistType>) => {
-        //     state[action.payload.id] = []
-        // },
-
+        addTags: (state, action: PayloadAction<{ notesId: string, noteId: string, newTags: string[] }>) => {
+            const { notesId, noteId, newTags } = action.payload;
+            const noteIndex = state.findIndex((n) => n.id === notesId);
+            if (noteIndex !== -1) {
+                state[noteIndex].notes = state[noteIndex].notes.map((note) => {
+                    if (note.id === noteId) note.tags = newTags
+                    return note;
+                });
+            }
+        },
     },
 })
 
-export const {addNotes, addNote, removeNotes, removeNote, updateNote, changeStatus, changeFilter, updateNotes} = notesSlice.actions
+export const {addNotes, addNote, removeNotes, removeNote, updateNote, changeStatus, changeFilter, updateNotes, addTags} = notesSlice.actions
 export default notesSlice.reducer
 
 //types
@@ -110,4 +113,5 @@ export type NotesType = {
     title: string
     status: any
     timeAdded: string
+    tags: string[]
 }

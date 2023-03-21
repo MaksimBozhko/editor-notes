@@ -1,8 +1,10 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import notesSlice from './notesSlice';
+import appSlice from './appSlice';
 
 const reducer = combineReducers({
-    notes: notesSlice
+    notes: notesSlice,
+    app: appSlice
 })
 export const store = configureStore({reducer})
 
