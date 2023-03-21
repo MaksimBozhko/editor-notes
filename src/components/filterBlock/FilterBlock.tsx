@@ -12,16 +12,18 @@ export const FilterBlock: React.FC<FilterBlockPropsType> = memo(({ id, filter })
     const changeFilterHandler = useCallback((value: FilterValuesType) => {
         dispatch(changeFilter({id, value}))
     },[]);
-
+    const classNameAllBtn = `${s.btn} ${filter === 'all' ? ` ${s.active}` : ''}`
+    const classNameActiveBtn = `${s.btn} ${filter === 'active' ? ` ${s.active}` : ''}`
+    const classNameCompletedBtn = `${s.btn} ${filter === 'completed' ? ` ${s.active}` : ''}`
     return (
         <div className={s.btnGroup}>
-            <button onClick={() => changeFilterHandler('all')}>
+            <button className={classNameAllBtn} onClick={() => changeFilterHandler('all')}>
                 All
             </button>
-            <button onClick={() => changeFilterHandler('active')}>
+            <button className={classNameActiveBtn} onClick={() => changeFilterHandler('active')}>
                 Active
             </button>
-            <button onClick={() => changeFilterHandler('completed')}>
+            <button className={classNameCompletedBtn} onClick={() => changeFilterHandler('completed')}>
                 Completed
             </button>
         </div>

@@ -1,4 +1,17 @@
 .btnGroup {
   display: flex;
   gap: 20px;
+
+  & .btn {
+   padding: 5px 15px;
+    background-color: inherit;
+    border: 1px solid #000;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  & .active {
+    background-color: #000;
+    color: #fff;
+
+  }
 }

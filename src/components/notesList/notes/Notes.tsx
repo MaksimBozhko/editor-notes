@@ -28,7 +28,7 @@ export const Notes: React.FC<TasksPropsType> = memo(({ notesId, filter, notes })
     };
     let filteredTasksToRender: NotesType[] = getFilteredTasks();
     let filteredTasksToRenderMap = filteredTasksToRender.length ? (
-        ArrNotesToRender.map(({ id, title, status }) => {
+        filteredTasksToRender.map(({ id, title, status }) => {
             return <Note key={id} notesId={notesId} noteId={id} title={title} status={status} />;
         })
     ) : (
