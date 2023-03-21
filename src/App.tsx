@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useCallback} from 'react';
 import './App.css';
+import {AddItem} from './components/addItem/AddItem';
+import {NotesList} from './components/notesList/NotesList';
+import {useAppDispatch, useAppSelector} from './hooks/hooks';
+import {addNotes} from './store/notesSlice';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const dispatch = useAppDispatch()
+    const notesList = useAppSelector(state => state.notes)
+    const addNotesHandler = useCallback((titleNotes: string) => {
+        dispatch(addNotes(titleNotes))
+    }, []);
+    const notes = notesList.map((t) => <NotesList key={t.id} id={t.id} title={t.title} filter={t.filter} notes={t.notes}/>)
+
+    return (
+        <div className="App">
+            <div>
+                <AddItem callBack={addNotesHandler}/>
+            </div>
+            <div>
+                {notes}
+            </div>
+        </div>
+    );
 }
 
 export default App;
