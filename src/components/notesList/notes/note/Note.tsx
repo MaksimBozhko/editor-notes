@@ -26,9 +26,9 @@ export const Note: React.FC<TodoPropsType> = memo(({notesId, noteId, title, stat
         dispatch(changeStatus({notesId, noteId, status}))
 
     };
-    const updateTaskHandler = useCallback((title: string) => {
+    const updateTaskHandler = (title: string) => {
         dispatch(updateNote({notesId, noteId, title}))
-    }, []);
+    }
     const onChangeRemoveHandler = () => {
         dispatch(removeNote({notesId, noteId}))
     };

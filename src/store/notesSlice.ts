@@ -3,8 +3,6 @@ import {v1} from 'uuid';
 import produce from 'immer';
 import Data from '../data/data.json'
 
-export type FilterValuesType = 'all' | 'active' | 'completed'
-
 const initialState: NotesListType[] = Data
 
 export const notesSlice = createSlice({
@@ -100,3 +98,4 @@ export type NotesType = {
     timeAdded: string
     tags: string[]
 }
+export type FilterValuesType = 'all' | 'active' | 'completed'

@@ -10,9 +10,9 @@ function App() {
     const dispatch = useAppDispatch()
     const notesList = useAppSelector(state => state.notes)
     const {selectedTag} = useAppSelector(state => state.app)
-    const addNotesHandler = useCallback((titleNotes: string) => {
+    const addNotesHandler = (titleNotes: string) => {
         dispatch(addNotes(titleNotes))
-    }, []);
+    }
 
     const ArrNotesToRender = selectedTag.id ? notesList.filter((n) => n.id === selectedTag.id) : notesList
     const notes = ArrNotesToRender.map((t) => <NotesList key={t.id} id={t.id} title={t.title} filter={t.filter} notes={t.notes}/>)

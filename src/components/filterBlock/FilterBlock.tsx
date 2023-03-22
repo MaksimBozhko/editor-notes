@@ -9,9 +9,9 @@ type FilterBlockPropsType = {
 };
 export const FilterBlock: React.FC<FilterBlockPropsType> = memo(({ id, filter }) => {
     const dispatch = useAppDispatch()
-    const changeFilterHandler = useCallback((value: FilterValuesType) => {
+    const changeFilterHandler = (value: FilterValuesType) => {
         dispatch(changeFilter({id, value}))
-    },[]);
+    }
     const classNameAllBtn = `${s.btn} ${filter === 'all' ? ` ${s.active}` : ''}`
     const classNameActiveBtn = `${s.btn} ${filter === 'active' ? ` ${s.active}` : ''}`
     const classNameCompletedBtn = `${s.btn} ${filter === 'completed' ? ` ${s.active}` : ''}`

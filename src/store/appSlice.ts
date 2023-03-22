@@ -29,6 +29,7 @@ export const appSlice = createSlice({
 export const {addAllTags, setSelectedTags} = appSlice.actions
 export default appSlice.reducer
 
+//types
 type AppStateType = {
     tags: TagsType[]
     selectedTag: TagsType

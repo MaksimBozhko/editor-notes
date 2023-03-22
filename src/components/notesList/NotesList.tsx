@@ -16,15 +16,15 @@ type NotesListPropsType = {
 
 export const NotesList: FC<NotesListPropsType> = ({id: notesId, filter, title, notes}) => {
     const dispatch = useAppDispatch()
-    const addNotesHandler = useCallback((titleNote: string) => {
+    const addNotesHandler =(titleNote: string) => {
         dispatch(addNote({notesId, titleNote}))
-    }, []);
+    }
     const onChangeRemoveNotesHandler = () => {
         dispatch(removeNotes(notesId))
     }
-    const onChangeUpdateTodoListHandler = useCallback((title: string) => {
+    const onChangeUpdateTodoListHandler = (title: string) => {
         dispatch(updateNotes({notesId, title}))
-    }, []);
+    }
 
     return (
         <div className={s.noteList}>
